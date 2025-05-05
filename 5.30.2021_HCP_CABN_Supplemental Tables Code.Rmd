@@ -1,0 +1,57 @@
+---
+title: "HCP_CABN_Supplemental Tables Code"
+author: "Aisha Udochi"
+date: "5/30/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load(Hmisc)
+```
+
+# Loading Data
+
+```{r}
+HCPData <- read.csv("HCP_ToM.csv")
+head(HCPData)
+```
+
+# Table S1
+```{r}
+# Subsetting data for table
+TS1Data <- HCPData[, c(2,268,15,10,13,822:823,821,820,48,819,198,203,208,213,218,223,228,233,238,243,248,253)]
+
+# Calculating Pearson Correlations
+TS1 <- rcorr(as.matrix(TS1Data), type = "pearson")
+View(TS1$r)
+
+# ...and their significance!
+View(round(TS1$P, 4))
+```
+
+# Table S2
+```{r}
+# Subsetting data for table
+TS2Data <- HCPData[, c(748:749,751,750,735:739,724:725,727,726,711:715)]
+
+# Calculating Pearson Correlations
+TS2 <- rcorr(as.matrix(TS2Data), type = "pearson")
+View(TS2$r)
+
+# ...and their significance!
+View(round(TS2$P,4))
+```
+
+# Table S3
+```{r}
+# Subsetting data for table
+TS3Data <- HCPData[, c(748:749,751,750,735:739,724:725,727,726,711:715,2,268,15,10,13,822:823,821,820,48,819,198,203,208,213,218,223,228,233,238,243,248,253)]
+
+# Calculating Pearson Correlations
+TS3 <- rcorr(as.matrix(TS3Data), type = "pearson")
+View(round(TS3$r[1:18, 19:41],4))
+
+# ...and their significance!
+View(round(TS3$P[1:18, 19:41],4))
+```
